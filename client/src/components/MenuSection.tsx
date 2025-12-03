@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
-import { Star } from "lucide-react";
+import { Card } from "@/components/ui/card";
 
 import dish1 from "@assets/generated_images/butter_chicken_in_clay_pot.png";
 import dish2 from "@assets/generated_images/mutton_rogan_josh_in_brass_bowl.png";
@@ -11,79 +10,94 @@ const menuItems = [
   {
     id: 1,
     name: "Chulha Chicken",
-    description: "Tender chicken slow-cooked in a clay pot with secret spices.",
-    price: "₹349",
+    prices: { half: "₹349", full: "₹649" },
     image: dish1,
-    tag: "Bestseller"
+    type: "curry"
   },
   {
     id: 2,
     name: "Chulha Mutton",
-    description: "Rich, spicy mutton curry prepared in traditional brassware.",
-    price: "₹549",
+    prices: { half: "₹549", full: "₹849" },
     image: dish2,
-    tag: "Spicy"
+    type: "curry"
   },
   {
     id: 3,
     name: "Chulhe Ki Roti",
-    description: "Freshly baked tandoori roti with a generous dollop of butter.",
-    price: "₹7",
+    prices: { single: "₹7" },
     image: dish3,
-    tag: "Essential"
+    type: "bread"
   }
 ];
 
 export default function MenuSection() {
   return (
-    <section id="menu" className="py-24 bg-background relative">
-      <div className="container mx-auto px-6">
-        <div className="text-center mb-20">
-            <span className="text-primary font-sans tracking-[0.3em] uppercase text-sm">Our Specialties</span>
-            <h2 className="text-4xl md:text-5xl font-display text-foreground mt-3 mb-6">Curated for You</h2>
-            <div className="w-24 h-1 bg-primary mx-auto" />
+    <section id="menu" className="py-16 relative">
+      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+        
+        {/* Section Header */}
+        <div className="text-center mb-16 relative">
+             <h2 className="text-3xl md:text-4xl font-display text-white tracking-widest uppercase mb-2">Our Specialties</h2>
+             <div className="flex justify-center items-center gap-2 opacity-50">
+                <div className="h-[1px] w-12 bg-[#8B6E4E]" />
+                <div className="w-2 h-2 rotate-45 bg-[#8B6E4E]" />
+                <div className="h-[1px] w-12 bg-[#8B6E4E]" />
+             </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
+        {/* Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           {menuItems.map((item, index) => (
             <motion.div
               key={item.id}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.2 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
               viewport={{ once: true }}
             >
-              <Card className="bg-card/50 border-border overflow-hidden group hover:border-primary/50 transition-all duration-300">
-                <div className="relative aspect-square overflow-hidden">
-                    <div className="absolute top-4 right-4 z-10 bg-primary text-primary-foreground px-3 py-1 text-xs font-bold uppercase tracking-wider rounded-sm">
-                        {item.tag}
-                    </div>
+              <Card className="bg-[#FDF8F3] border-none rounded-xl overflow-hidden p-4 pb-8 flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+                
+                {/* Image Container - Rectangular Look matching reference */}
+                <div className="w-full aspect-square rounded-xl overflow-hidden mb-4 mx-4 mt-4">
                   <img 
                     src={item.image} 
                     alt={item.name} 
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-colors duration-300" />
                 </div>
-                <CardContent className="p-8 text-center">
-                  <h3 className="text-2xl font-display text-foreground mb-2">{item.name}</h3>
-                  <p className="text-muted-foreground font-sans text-sm mb-6">{item.description}</p>
-                  <div className="text-3xl font-serif text-primary">{item.price}</div>
-                </CardContent>
-                <CardFooter className="p-8 pt-0 flex justify-center">
-                  <Button variant="outline" className="w-full border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-all rounded-none tracking-widest uppercase text-xs py-6">
+
+                {/* Content */}
+                <h3 className="text-2xl font-serif text-[#2A1A11] mb-4 font-medium tracking-wide">{item.name}</h3>
+                
+                {/* Pricing */}
+                <div className="flex items-center justify-center gap-8 w-full mb-6 font-sans text-[#2A1A11]">
+                    {item.type === 'curry' ? (
+                        <>
+                            <div className="flex flex-col items-center">
+                                <span className="text-xs uppercase tracking-wider text-gray-500 mb-1">Half</span>
+                                <span className="text-xl font-bold">{item.prices.half}</span>
+                            </div>
+                            <div className="w-[1px] h-8 bg-gray-300" />
+                            <div className="flex flex-col items-center">
+                                <span className="text-xs uppercase tracking-wider text-gray-500 mb-1">Full</span>
+                                <span className="text-xl font-bold">{item.prices.full}</span>
+                            </div>
+                        </>
+                    ) : (
+                         <div className="flex flex-col items-center">
+                             <span className="text-2xl font-bold">{item.prices.single}</span>
+                         </div>
+                    )}
+                </div>
+
+                {/* Button */}
+                <Button className="bg-[#8B6E4E] hover:bg-[#755C41] text-white text-xs font-bold uppercase tracking-[0.15em] px-8 py-2 rounded-full w-2/3">
                     Add to Cart
-                  </Button>
-                </CardFooter>
+                </Button>
+
               </Card>
             </motion.div>
           ))}
-        </div>
-        
-        <div className="mt-16 text-center">
-            <Button variant="link" className="text-muted-foreground hover:text-primary text-lg font-serif italic decoration-primary underline-offset-4">
-                View Full Menu &rarr;
-            </Button>
         </div>
       </div>
     </section>

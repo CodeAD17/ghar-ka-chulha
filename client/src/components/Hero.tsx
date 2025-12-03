@@ -1,62 +1,48 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import heroBg from "@assets/generated_images/dark_cinematic_wooden_background_with_smoke_and_embers.png";
+import heroBg from "@assets/generated_images/dark_wooden_board_with_raw_ingredients_and_clay_pot.png"; // Placeholder, will update with new generation
 
 export default function Hero() {
   return (
-    <section id="home" className="relative h-screen w-full overflow-hidden flex items-center justify-center">
-      {/* Background Image with Parallax-like feel via fixed attachment or generic styling */}
-      <div 
-        className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
-        style={{ 
-            backgroundImage: `url(${heroBg})`,
-            filter: "brightness(0.6)"
-        }} 
-      />
-      
-      {/* Overlay Gradient */}
-      <div className="absolute inset-0 z-10 bg-gradient-to-t from-background via-transparent to-transparent opacity-90" />
-      <div className="absolute inset-0 z-10 bg-gradient-to-b from-black/40 to-transparent" />
+    <section className="relative w-full px-4 md:px-8 pt-24 pb-12">
+      <div className="max-w-6xl mx-auto relative rounded-3xl overflow-hidden h-[500px] md:h-[600px] shadow-2xl border border-white/5 group">
+        
+        {/* Background Image */}
+        <div 
+            className="absolute inset-0 bg-cover bg-center transition-transform duration-1000 group-hover:scale-105"
+            style={{ 
+                backgroundImage: `url(${heroBg})`,
+            }} 
+        />
+        
+        {/* Gradient Overlays for Text Readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
 
-      {/* Content */}
-      <div className="relative z-20 container mx-auto px-6 text-center md:text-left pt-20">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.2 }}
-        >
-          <span className="text-primary font-sans tracking-[0.3em] uppercase text-sm md:text-base mb-4 block">
-            Authentic Indian Cuisine
-          </span>
-          <h1 className="text-5xl md:text-7xl lg:text-8xl font-display text-foreground mb-6 leading-tight">
-            The Authentic Taste <br />
-            <span className="text-primary italic font-serif">of Ghar Ka Chulha</span>
-          </h1>
-          <p className="text-muted-foreground text-lg md:text-xl max-w-xl mb-10 font-sans leading-relaxed">
-            Desi Chicken & Mutton, cooked to perfection in traditional clay pots. 
-            Experience the nostalgia of home-cooked meals every Sunday.
-          </p>
-          
-          <div className="flex flex-col md:flex-row gap-4 justify-center md:justify-start">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 text-lg px-10 py-6 rounded-none font-serif tracking-wider">
-              VIEW MENU
+        {/* Content Content */}
+        <div className="relative z-10 h-full flex flex-col justify-center px-8 md:px-16 max-w-2xl">
+          <motion.div
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <h1 className="text-4xl md:text-6xl font-display text-white mb-6 leading-tight tracking-wide">
+              THE AUTHENTIC TASTE <br/>
+              <span className="font-light text-white/90">OF GHAR KA CHULHA</span>
+            </h1>
+            
+            <p className="text-white/70 text-lg mb-8 font-sans max-w-md font-light leading-relaxed">
+              Desi Chicken & Mutton, Every Sunday. <br/>
+              Takeaway & Delivery.
+            </p>
+            
+            <Button 
+                className="bg-[#8B6E4E] hover:bg-[#A3825E] text-white rounded-full px-8 py-6 text-xs font-bold tracking-[0.15em] uppercase transition-all transform hover:translate-x-2"
+            >
+              View Menu
             </Button>
-            <Button size="lg" variant="outline" className="border-primary text-primary hover:bg-primary hover:text-primary-foreground text-lg px-10 py-6 rounded-none font-serif tracking-wider backdrop-blur-sm">
-              BOOK A TABLE
-            </Button>
-          </div>
-        </motion.div>
+          </motion.div>
+        </div>
       </div>
-
-      {/* Scroll Indicator */}
-      <motion.div 
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 hidden md:block"
-      >
-        <div className="w-[1px] h-24 bg-gradient-to-b from-primary to-transparent" />
-      </motion.div>
     </section>
   );
 }
