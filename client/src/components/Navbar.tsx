@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { ShoppingBag } from "lucide-react";
 import { useCart } from "@/lib/cartContext";
 import { useEffect, useState } from "react";
+import logo from "@/assets/logo.png";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -44,7 +45,7 @@ export default function Navbar() {
 
           {/* Desktop Logo (Image + Text) */}
           <div className="hidden md:flex items-center gap-3 cursor-pointer group">
-            <img src="/logo.png" alt="Ghar Ka Chulha" className="h-12 w-auto" />
+            <img src={logo} alt="Ghar Ka Chulha" className="h-12 w-auto" />
             <div className="flex flex-col">
               <span className="text-2xl font-display text-white tracking-[0.2em] uppercase group-hover:text-primary transition-colors duration-300">
                 Ghar Ka Chulha
