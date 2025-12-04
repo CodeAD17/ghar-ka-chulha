@@ -1,58 +1,82 @@
-import { Link } from "wouter";
+import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
+import { ShoppingBag } from "lucide-react";
+import { useCart } from "@/lib/cartContext";
 import { useEffect, useState } from "react";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
+  const [location] = useLocation();
+  const { cartCount } = useCart();
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const navLinks = [
+    { name: "Home", href: "/" },
+    { name: "Menu", href: "/menu" },
+    { name: "About", href: "/#about-us" },
+    { name: "Contact", href: "/contact" },
+  ];
+
   return (
     <nav 
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
-            scrolled 
+            scrolled || location !== "/"
             ? "bg-black/80 backdrop-blur-xl py-4 border-b border-white/5" 
-            : "bg-transparent py-8"
+            : "bg-transparent py-6 md:py-8"
         }`}
     >
       <div className="container mx-auto px-6 flex items-center justify-between">
         {/* Logo */}
         <Link href="/">
           <div className="flex flex-col cursor-pointer group">
-            <span className="text-2xl font-display text-white tracking-[0.2em] uppercase group-hover:text-primary transition-colors duration-300">
+            <span className="text-xl md:text-2xl font-display text-white tracking-[0.2em] uppercase group-hover:text-primary transition-colors duration-300">
               Ghar Ka Chulha
             </span>
-            <span className="text-[10px] font-sans tracking-[0.6em] text-primary uppercase text-center opacity-0 group-hover:opacity-100 transition-opacity duration-500 -mt-1">
-              Royal Kitchen
+            <span className="text-[8px] md:text-[10px] font-sans tracking-[0.4em] md:tracking-[0.6em] text-primary uppercase text-center opacity-100 transition-opacity duration-500 -mt-1">
+              Cloud Kitchen
             </span>
           </div>
         </Link>
 
         {/* Desktop Menu */}
         <div className="hidden md:flex items-center gap-12">
-          {["Home", "Menu", "About Us", "Contact"].map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase().replace(" ", "-")}`}
-              className="text-sm font-sans tracking-widest uppercase text-white/70 hover:text-primary transition-all duration-300 hover:tracking-[0.2em]"
-            >
-              {item}
-            </a>
+          {navLinks.map((item) => (
+            <Link key={item.name} href={item.href}>
+              <span className={`text-sm font-sans tracking-widest uppercase transition-all duration-300 hover:tracking-[0.2em] cursor-pointer ${
+                location === item.href ? "text-primary" : "text-white/70 hover:text-primary"
+              }`}>
+                {item.name}
+              </span>
+            </Link>
           ))}
         </div>
 
-        {/* CTA Button - Desktop Only */}
-        <div className="hidden md:block">
-            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary hover:text-black font-bold text-xs tracking-widest uppercase px-8 py-5 rounded-none transition-all duration-300">
-                Reserve Table
-            </Button>
+        {/* Cart Button */}
+        <div className="flex items-center gap-4">
+            <Link href="/cart">
+              <Button variant="ghost" className="relative text-white hover:text-primary hover:bg-white/5 transition-colors p-2 rounded-full">
+                  <ShoppingBag className="w-5 h-5" />
+                  {cartCount > 0 && (
+                    <span className="absolute -top-1 -right-1 bg-primary text-black text-[10px] font-bold w-4 h-4 flex items-center justify-center rounded-full">
+                      {cartCount}
+                    </span>
+                  )}
+              </Button>
+            </Link>
+            
+            <div className="hidden md:block">
+                <Link href="/menu">
+                    <Button className="bg-primary text-black hover:bg-white hover:text-black font-bold text-xs tracking-widest uppercase px-6 py-5 rounded-none transition-all duration-300">
+                        Order Now
+                    </Button>
+                </Link>
+            </div>
         </div>
-        
-        {/* Mobile: Just Logo is shown here, Nav is at bottom */}
       </div>
     </nav>
   );
