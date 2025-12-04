@@ -4,7 +4,7 @@ import { Trash2, Plus, Minus, CreditCard, ChevronRight } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
 import { useState } from "react";
-import LocationPicker from "@/components/LocationPicker";
+
 
 export default function Cart() {
     const { items, removeFromCart, updateQuantity, cartTotal } = useCart();
@@ -12,11 +12,7 @@ export default function Cart() {
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
     const [deliveryTime, setDeliveryTime] = useState("");
-    const [locationLink, setLocationLink] = useState("");
 
-    const handleLocationSelect = (lat: number, lng: number) => {
-        setLocationLink(`https://www.google.com/maps?q=${lat},${lng}`);
-    };
 
     const handleCheckout = () => {
         if (!name || !phone || !address || !deliveryTime) {
@@ -31,10 +27,6 @@ export default function Cart() {
         const totalAmount = cartTotal + 40;
 
         let message = `*New Order Request* 🍽️\n\n*Customer Details:*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPreferred Time: ${deliveryTime}\n`;
-
-        if (locationLink) {
-            message += `Location: ${locationLink}\n`;
-        }
 
         message += `\n*Order Summary:*\n${orderDetails}\n\n*Total Amount:* ₹${totalAmount}\n\nPlease confirm my order!`;
 
@@ -158,10 +150,7 @@ export default function Cart() {
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 text-sm min-h-[80px]"
                                     />
 
-                                    <div className="space-y-2">
-                                        <label className="text-xs text-white/50 uppercase tracking-wider">Pin Location on Map</label>
-                                        <LocationPicker onLocationSelect={handleLocationSelect} />
-                                    </div>
+
                                 </div>
 
                                 <Button
