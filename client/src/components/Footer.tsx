@@ -18,6 +18,10 @@ export default function Footer() {
             <p className="text-white/50 font-sans font-light leading-loose">
                 +91 84493 06111
             </p>
+             <p className="text-white/50 font-sans font-light leading-loose">
+        
+                +91 84679 32423
+            </p>
           </div>
 
           {/* Center Logo */}

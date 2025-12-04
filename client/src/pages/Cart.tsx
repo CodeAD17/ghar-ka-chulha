@@ -11,6 +11,7 @@ export default function Cart() {
     const [name, setName] = useState("");
     const [phone, setPhone] = useState("");
     const [address, setAddress] = useState("");
+    const [deliveryTime, setDeliveryTime] = useState("");
     const [locationLink, setLocationLink] = useState("");
 
     const handleLocationSelect = (lat: number, lng: number) => {
@@ -18,8 +19,8 @@ export default function Cart() {
     };
 
     const handleCheckout = () => {
-        if (!name || !phone || !address) {
-            alert("Please fill in all details to place your order.");
+        if (!name || !phone || !address || !deliveryTime) {
+            alert("Please fill in all details including delivery time to place your order.");
             return;
         }
 
@@ -27,9 +28,9 @@ export default function Cart() {
             .map((item) => `- ${item.name} (${item.variant || "Standard"}) x ${item.quantity} = ₹${item.price * item.quantity}`)
             .join("\n");
 
-        const totalAmount = cartTotal + 40 + Math.round(cartTotal * 0.05);
+        const totalAmount = cartTotal + 40;
 
-        let message = `*New Order Request* 🍽️\n\n*Customer Details:*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\n`;
+        let message = `*New Order Request* 🍽️\n\n*Customer Details:*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPreferred Time: ${deliveryTime}\n`;
 
         if (locationLink) {
             message += `Location: ${locationLink}\n`;
@@ -120,15 +121,11 @@ export default function Cart() {
                                         <span>Delivery Fee</span>
                                         <span className="text-white">₹40</span>
                                     </div>
-                                    <div className="flex justify-between">
-                                        <span>Taxes</span>
-                                        <span className="text-white">₹{Math.round(cartTotal * 0.05)}</span>
-                                    </div>
                                 </div>
 
                                 <div className="flex justify-between items-center mb-8">
                                     <span className="text-lg font-bold text-white uppercase tracking-widest">Total</span>
-                                    <span className="text-2xl font-serif text-primary">₹{cartTotal + 40 + Math.round(cartTotal * 0.05)}</span>
+                                    <span className="text-2xl font-serif text-primary">₹{cartTotal + 40}</span>
                                 </div>
 
                                 <div className="space-y-4 mb-6">
@@ -145,6 +142,13 @@ export default function Cart() {
                                         placeholder="Phone Number"
                                         value={phone}
                                         onChange={(e) => setPhone(e.target.value)}
+                                        className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 text-sm"
+                                    />
+                                    <input
+                                        type="time"
+                                        placeholder="Preferred Delivery Time"
+                                        value={deliveryTime}
+                                        onChange={(e) => setDeliveryTime(e.target.value)}
                                         className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 text-white placeholder:text-white/30 focus:outline-none focus:border-primary/50 text-sm"
                                     />
                                     <textarea
