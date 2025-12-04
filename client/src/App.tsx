@@ -12,39 +12,80 @@ import Cart from "@/pages/Cart";
 import Navbar from "@/components/Navbar";
 import BottomNav from "@/components/BottomNav";
 import Footer from "@/components/Footer";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { AnimatePresence } from "framer-motion";
+import Loader from "@/components/ui/Loader";
+import PageTransition from "@/components/PageTransition";
 
 function ScrollToTop() {
   const [pathname] = useLocation();
-  
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  
+
   return null;
 }
 
 function Router() {
+  const [location] = useLocation();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate initial loading for a relaxing experience
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 2000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="flex flex-col min-h-screen bg-background text-foreground overflow-x-hidden relative selection:bg-primary/30">
+      <AnimatePresence>
+        {isLoading && <Loader />}
+      </AnimatePresence>
+
       {/* Global Grain Texture */}
-      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[60]" 
-             style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }} 
+      <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[60]"
+        style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }}
       />
-      
+
       <ScrollToTop />
       <Navbar />
-      
+
       <main className="flex-grow">
-        <Switch>
-          <Route path="/" component={Home} />
-          <Route path="/menu" component={Menu} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/cart" component={Cart} />
-          <Route component={NotFound} />
-        </Switch>
+        <AnimatePresence mode="wait">
+          <Switch location={location} key={location}>
+            <Route path="/">
+              <PageTransition>
+                <Home />
+              </PageTransition>
+            </Route>
+            <Route path="/menu">
+              <PageTransition>
+                <Menu />
+              </PageTransition>
+            </Route>
+            <Route path="/contact">
+              <PageTransition>
+                <Contact />
+              </PageTransition>
+            </Route>
+            <Route path="/cart">
+              <PageTransition>
+                <Cart />
+              </PageTransition>
+            </Route>
+            <Route>
+              <PageTransition>
+                <NotFound />
+              </PageTransition>
+            </Route>
+          </Switch>
+        </AnimatePresence>
       </main>
-      
+
       <Footer />
       <BottomNav />
     </div>

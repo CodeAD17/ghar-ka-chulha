@@ -1,5 +1,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { toast } from "@/hooks/use-toast";
+import { ToastAction } from "@/components/ui/toast";
+import { useLocation } from "wouter";
 
 export type CartItem = {
   id: number;
@@ -24,13 +26,14 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [, setLocation] = useLocation();
 
   const addToCart = (newItem: Omit<CartItem, 'quantity'>) => {
     setItems((currentItems) => {
       const existingItem = currentItems.find(
         (item) => item.id === newItem.id && item.variant === newItem.variant
       );
-      
+
       if (existingItem) {
         return currentItems.map((item) =>
           item.id === newItem.id && item.variant === newItem.variant
@@ -38,12 +41,21 @@ export function CartProvider({ children }: { children: ReactNode }) {
             : item
         );
       }
-      
+
       return [...currentItems, { ...newItem, quantity: 1 }];
     });
     toast({
       title: "Added to cart",
       description: `${newItem.name} has been added to your order.`,
+      action: (
+        <ToastAction
+          altText="View Cart"
+          onClick={() => setLocation("/cart")}
+          className="bg-primary text-black hover:bg-primary/90 border-0 font-bold"
+        >
+          View Cart
+        </ToastAction>
+      ),
     });
   };
 
