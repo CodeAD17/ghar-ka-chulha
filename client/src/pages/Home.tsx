@@ -1,32 +1,26 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import MenuSection from "@/components/MenuSection";
+import AboutSection from "@/components/AboutSection";
 import Footer from "@/components/Footer";
-import heroBg from "@assets/generated_images/dark_cinematic_wooden_background_with_smoke_and_embers.png";
+import BottomNav from "@/components/BottomNav";
+import heroBg from "@assets/generated_images/dark_luxury_marble_texture_with_gold_veins.png";
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-[#120C08] overflow-x-hidden relative">
-        {/* Global Background Texture */}
-        <div 
-            className="fixed inset-0 z-0 opacity-40 pointer-events-none"
-            style={{ 
-                backgroundImage: `url(${heroBg})`,
-                backgroundSize: 'cover',
-                backgroundPosition: 'center',
-                filter: 'contrast(1.2) brightness(0.5)'
-            }}
-        />
+    <div className="min-h-screen bg-background text-foreground overflow-x-hidden relative selection:bg-primary/30">
         
-        {/* Smoke overlay effect */}
-        <div className="fixed inset-0 z-0 opacity-30 bg-gradient-to-b from-transparent via-transparent to-black pointer-events-none" />
+        {/* Global Grain Texture for that "Film" look */}
+        <div className="fixed inset-0 opacity-[0.03] pointer-events-none z-[60]" 
+             style={{ backgroundImage: `url("https://grainy-gradients.vercel.app/noise.svg")` }} 
+        />
 
-        <div className="relative z-10">
-            <Navbar />
-            <Hero />
-            <MenuSection />
-            <Footer />
-        </div>
+        <Navbar />
+        <Hero />
+        <MenuSection />
+        <AboutSection />
+        <Footer />
+        <BottomNav />
     </div>
   );
 }

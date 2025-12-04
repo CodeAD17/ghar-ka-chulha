@@ -1,6 +1,5 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Card } from "@/components/ui/card";
 
 import dish1 from "@assets/generated_images/butter_chicken_in_clay_pot.png";
 import dish2 from "@assets/generated_images/mutton_rogan_josh_in_brass_bowl.png";
@@ -10,92 +9,103 @@ const menuItems = [
   {
     id: 1,
     name: "Chulha Chicken",
+    description: "Tender chicken slow-cooked in clay pot.",
     prices: { half: "₹349", full: "₹649" },
     image: dish1,
-    type: "curry"
+    tag: "Chef's Special"
   },
   {
     id: 2,
     name: "Chulha Mutton",
+    description: "Rich spicy mutton curry in brassware.",
     prices: { half: "₹549", full: "₹849" },
     image: dish2,
-    type: "curry"
+    tag: "Royal Choice"
   },
   {
     id: 3,
     name: "Chulhe Ki Roti",
+    description: "Freshly baked tandoori roti with butter.",
     prices: { single: "₹7" },
     image: dish3,
-    type: "bread"
+    tag: "Classic"
   }
 ];
 
 export default function MenuSection() {
   return (
-    <section id="menu" className="py-16 relative">
-      <div className="container mx-auto px-4 md:px-8 max-w-6xl">
+    <section id="menu" className="py-32 bg-background relative overflow-hidden">
+      
+      {/* Decorative Background Text */}
+      <div className="absolute top-20 left-0 w-full overflow-hidden pointer-events-none opacity-[0.02]">
+        <span className="text-[20vw] font-display text-white leading-none whitespace-nowrap">
+            SIGNATURE DISHES
+        </span>
+      </div>
+
+      <div className="container mx-auto px-6 relative z-10">
         
-        {/* Section Header */}
-        <div className="text-center mb-16 relative">
-             <h2 className="text-3xl md:text-4xl font-display text-white tracking-widest uppercase mb-2">Our Specialties</h2>
-             <div className="flex justify-center items-center gap-2 opacity-50">
-                <div className="h-[1px] w-12 bg-[#8B6E4E]" />
-                <div className="w-2 h-2 rotate-45 bg-[#8B6E4E]" />
-                <div className="h-[1px] w-12 bg-[#8B6E4E]" />
-             </div>
+        <div className="text-center mb-20">
+             <span className="text-primary font-sans text-xs tracking-[0.4em] uppercase block mb-4">Culinary Masterpieces</span>
+             <h2 className="text-4xl md:text-5xl font-display text-white mb-6">Our Specialties</h2>
+             <div className="w-px h-16 bg-gradient-to-b from-primary to-transparent mx-auto" />
         </div>
 
-        {/* Cards Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {menuItems.map((item, index) => (
             <motion.div
               key={item.id}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
-              viewport={{ once: true }}
+              transition={{ duration: 0.7, delay: index * 0.2 }}
+              viewport={{ once: true, margin: "-50px" }}
+              className="group"
             >
-              <Card className="bg-[#FDF8F3] border-none rounded-xl overflow-hidden p-4 pb-8 flex flex-col items-center shadow-lg hover:shadow-xl transition-shadow duration-300 h-full">
+              <div className="relative bg-white/[0.02] backdrop-blur-sm border border-white/5 p-6 hover:border-primary/30 transition-all duration-500 hover:bg-white/[0.04]">
                 
-                {/* Image Container - Rectangular Look matching reference */}
-                <div className="w-full aspect-square rounded-xl overflow-hidden mb-4 mx-4 mt-4">
-                  <img 
-                    src={item.image} 
-                    alt={item.name} 
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
-                  />
+                {/* Image */}
+                <div className="relative aspect-[4/5] overflow-hidden mb-8 grayscale-[30%] group-hover:grayscale-0 transition-all duration-700">
+                    <div className="absolute top-4 left-4 z-10 bg-black/60 backdrop-blur-md px-3 py-1 border border-white/10">
+                        <span className="text-[10px] font-sans tracking-widest text-primary uppercase">{item.tag}</span>
+                    </div>
+                    <img 
+                        src={item.image} 
+                        alt={item.name} 
+                        className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-110"
+                    />
+                    {/* Shine Effect */}
+                    <div className="absolute inset-0 bg-gradient-to-tr from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                 </div>
 
                 {/* Content */}
-                <h3 className="text-2xl font-serif text-[#2A1A11] mb-4 font-medium tracking-wide">{item.name}</h3>
-                
-                {/* Pricing */}
-                <div className="flex items-center justify-center gap-8 w-full mb-6 font-sans text-[#2A1A11]">
-                    {item.type === 'curry' ? (
-                        <>
-                            <div className="flex flex-col items-center">
-                                <span className="text-xs uppercase tracking-wider text-gray-500 mb-1">Half</span>
-                                <span className="text-xl font-bold">{item.prices.half}</span>
-                            </div>
-                            <div className="w-[1px] h-8 bg-gray-300" />
-                            <div className="flex flex-col items-center">
-                                <span className="text-xs uppercase tracking-wider text-gray-500 mb-1">Full</span>
-                                <span className="text-xl font-bold">{item.prices.full}</span>
-                            </div>
-                        </>
-                    ) : (
-                         <div className="flex flex-col items-center">
-                             <span className="text-2xl font-bold">{item.prices.single}</span>
-                         </div>
-                    )}
+                <div className="text-center">
+                    <h3 className="text-2xl font-display text-white mb-2 group-hover:text-primary transition-colors duration-300">{item.name}</h3>
+                    <p className="text-white/40 font-sans text-sm mb-6 font-light">{item.description}</p>
+                    
+                    {/* Pricing Divider */}
+                    <div className="flex items-center justify-center gap-6 mb-8">
+                        {item.prices.full ? (
+                            <>
+                                <div className="text-center">
+                                    <div className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Half</div>
+                                    <div className="text-lg font-serif text-white">{item.prices.half}</div>
+                                </div>
+                                <div className="w-px h-8 bg-white/10" />
+                                <div className="text-center">
+                                    <div className="text-[10px] uppercase tracking-widest text-white/30 mb-1">Full</div>
+                                    <div className="text-lg font-serif text-primary">{item.prices.full}</div>
+                                </div>
+                            </>
+                        ) : (
+                            <div className="text-xl font-serif text-primary">{item.prices.single}</div>
+                        )}
+                    </div>
+
+                    <Button className="w-full bg-transparent border border-white/20 text-white hover:bg-primary hover:border-primary hover:text-black transition-all duration-300 uppercase text-[10px] tracking-[0.2em] py-6 rounded-none">
+                        Add to Order
+                    </Button>
                 </div>
-
-                {/* Button */}
-                <Button className="bg-[#8B6E4E] hover:bg-[#755C41] text-white text-xs font-bold uppercase tracking-[0.15em] px-8 py-2 rounded-full w-2/3">
-                    Add to Cart
-                </Button>
-
-              </Card>
+              </div>
             </motion.div>
           ))}
         </div>

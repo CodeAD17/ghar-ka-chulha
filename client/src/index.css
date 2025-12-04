@@ -37,126 +37,86 @@
   --color-input: hsl(var(--input));
   --color-ring: hsl(var(--ring));
   
-  --color-chart-1: hsl(var(--chart-1));
-  --color-chart-2: hsl(var(--chart-2));
-  --color-chart-3: hsl(var(--chart-3));
-  --color-chart-4: hsl(var(--chart-4));
-  --color-chart-5: hsl(var(--chart-5));
-  
-  --color-sidebar: hsl(var(--sidebar));
-  --color-sidebar-foreground: hsl(var(--sidebar-foreground));
-  --color-sidebar-primary: hsl(var(--sidebar-primary));
-  --color-sidebar-primary-foreground: hsl(var(--sidebar-primary-foreground));
-  --color-sidebar-accent: hsl(var(--sidebar-accent));
-  --color-sidebar-accent-foreground: hsl(var(--sidebar-accent-foreground));
-  --color-sidebar-border: hsl(var(--sidebar-border));
-  --color-sidebar-ring: hsl(var(--sidebar-ring));
-
   --font-sans: 'Montserrat', 'Inter', sans-serif;
   --font-serif: 'Playfair Display', serif;
   --font-display: 'Cinzel', serif;
   
   --radius: 0.5rem;
-  
-  --animate-fade-in: fade-in 0.5s ease-out;
-  --animate-slide-up: slide-up 0.7s ease-out;
-  
-  @keyframes fade-in {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  @keyframes slide-up {
-    0% { transform: translateY(20px); opacity: 0; }
-    100% { transform: translateY(0); opacity: 1; }
-  }
 }
 
-/* DARK LUXURY THEME - Defaulting to Dark Mode aesthetic essentially */
 :root {
-  /* Dark Wood / Charcoal Background */
-  --background: 24 10% 10%; 
-  --foreground: 35 30% 90%; /* Off-white / Cream */
+  /* Deep Luxury Dark Theme */
+  --background: 0 0% 5%; /* #0d0d0d */
+  --foreground: 40 20% 94%; /* #f5f5f0 - Off White */
 
-  --card: 24 10% 13%;
-  --card-foreground: 35 30% 90%;
+  --card: 0 0% 7%;
+  --card-foreground: 40 20% 94%;
  
-  --popover: 24 10% 13%;
-  --popover-foreground: 35 30% 90%;
+  --popover: 0 0% 7%;
+  --popover-foreground: 40 20% 94%;
 
-  /* Gold/Amber for Primary */
-  --primary: 35 80% 50%;
-  --primary-foreground: 24 10% 10%;
+  /* Luxury Gold */
+  --primary: 45 65% 52%; /* #D4AF37 - Metallic Gold */
+  --primary-foreground: 0 0% 5%;
 
-  /* Rich Red/Spice for Secondary */
-  --secondary: 0 60% 40%;
-  --secondary-foreground: 35 30% 90%;
+  /* Rich Accents */
+  --secondary: 0 0% 12%;
+  --secondary-foreground: 45 65% 52%;
 
-  --muted: 24 10% 20%;
-  --muted-foreground: 24 10% 60%;
+  --muted: 0 0% 15%;
+  --muted-foreground: 0 0% 60%;
 
-  --accent: 35 80% 50%; /* Gold Accent */
-  --accent-foreground: 24 10% 10%;
+  --accent: 45 65% 52%;
+  --accent-foreground: 0 0% 5%;
 
   --destructive: 0 62% 30%;
-  --destructive-foreground: 35 30% 90%;
+  --destructive-foreground: 40 20% 94%;
 
-  --border: 24 10% 20%;
-  --input: 24 10% 20%;
-  --ring: 35 80% 50%;
+  --border: 45 30% 20%; /* Subtle gold tint on borders */
+  --input: 0 0% 15%;
+  --ring: 45 65% 52%;
 
   --radius: 0.5rem;
-  
-  --sidebar: 24 10% 12%;
-  --sidebar-foreground: 35 30% 90%;
-  --sidebar-primary: 35 80% 50%;
-  --sidebar-primary-foreground: 24 10% 10%;
-  --sidebar-accent: 24 10% 20%;
-  --sidebar-accent-foreground: 35 30% 90%;
-  --sidebar-border: 24 10% 20%;
-  --sidebar-ring: 35 80% 50%;
-}
-
-.dark {
-  /* Same as root since we are enforcing a dark theme essentially, 
-     but redefining to be safe if system pref switches */
-  --background: 24 10% 10%; 
-  --foreground: 35 30% 90%; 
-
-  --card: 24 10% 13%;
-  --card-foreground: 35 30% 90%;
- 
-  --popover: 24 10% 13%;
-  --popover-foreground: 35 30% 90%;
-
-  --primary: 35 80% 50%;
-  --primary-foreground: 24 10% 10%;
-
-  --secondary: 0 60% 40%;
-  --secondary-foreground: 35 30% 90%;
-
-  --muted: 24 10% 20%;
-  --muted-foreground: 24 10% 60%;
-
-  --accent: 35 80% 50%;
-  --accent-foreground: 24 10% 10%;
-
-  --destructive: 0 62% 30%;
-  --destructive-foreground: 35 30% 90%;
-
-  --border: 24 10% 20%;
-  --input: 24 10% 20%;
-  --ring: 35 80% 50%;
 }
 
 @layer base {
   * {
     @apply border-border;
   }
+  html {
+    scroll-behavior: smooth;
+  }
   body {
-    @apply font-sans antialiased bg-background text-foreground selection:bg-primary/20 selection:text-primary;
+    @apply font-sans antialiased bg-background text-foreground selection:bg-primary/30 selection:text-white;
   }
   h1, h2, h3, h4, h5, h6 {
     @apply font-display tracking-wide;
   }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0d0d0d; 
+}
+::-webkit-scrollbar-thumb {
+  background: #333; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37; 
+}
+
+/* Utility for gold text gradient */
+.text-gold-gradient {
+  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(to right, #BF953F, #FCF6BA, #B38728, #FBF5B7, #AA771C);
 }
