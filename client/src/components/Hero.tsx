@@ -41,8 +41,8 @@ export default function Hero() {
           </div>
 
           <h1 className="text-4xl sm:text-5xl md:text-7xl xl:text-8xl font-display text-white mb-6 md:mb-8 leading-tight">
-            ROYAL <br />
-            <span className="text-gold-gradient font-serif italic">Cloud Kitchen</span>
+            GHAR KA <br />
+            <span className="text-gold-gradient font-serif italic">Chulha</span>
           </h1>
 
           <p className="text-white/70 text-base md:text-xl font-sans font-light leading-relaxed max-w-md md:max-w-xl mx-auto lg:mx-0 mb-8 md:mb-10 px-4 lg:px-0">
