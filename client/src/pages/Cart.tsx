@@ -24,11 +24,11 @@ export default function Cart() {
             .map((item) => `- ${item.name} (${item.variant || "Standard"}) x ${item.quantity} = ₹${item.price * item.quantity}`)
             .join("\n");
 
-        const totalAmount = cartTotal + 40;
+        const totalAmount = cartTotal;
 
         let message = `*New Order Request* 🍽️\n\n*Customer Details:*\nName: ${name}\nPhone: ${phone}\nAddress: ${address}\nPreferred Time: ${deliveryTime}\n`;
 
-        message += `\n*Order Summary:*\n${orderDetails}\n\n*Total Amount:* ₹${totalAmount}\n\nPlease confirm my order!`;
+        message += `\n*Order Summary:*\n${orderDetails}\n\n*Bill Details:*\nItem Total: ₹${cartTotal}\nDelivery Fee: FREE\n\n*Total Amount:* ₹${totalAmount}\n\nPlease confirm my order!`;
 
         const whatsappUrl = `https://wa.me/8467932423?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, "_blank");
@@ -102,22 +102,25 @@ export default function Cart() {
                         {/* Checkout Summary */}
                         <div className="lg:col-span-1">
                             <div className="bg-[#111] border border-white/5 rounded-xl p-6 sticky top-24">
-                                <h3 className="text-xl font-display text-white mb-6">Summary</h3>
+                                <h3 className="text-xl font-display text-white mb-6">Bill Summary</h3>
 
                                 <div className="space-y-3 text-sm text-white/60 mb-6 border-b border-white/10 pb-6">
                                     <div className="flex justify-between">
-                                        <span>Subtotal</span>
+                                        <span>Item Total</span>
                                         <span className="text-white">₹{cartTotal}</span>
                                     </div>
-                                    <div className="flex justify-between">
+                                    <div className="flex justify-between items-center">
                                         <span>Delivery Fee</span>
-                                        <span className="text-white">₹40</span>
+                                        <div className="flex items-center gap-2">
+                                            <span className="text-white/40 line-through text-xs">₹40</span>
+                                            <span className="text-green-500 font-bold uppercase tracking-wider text-xs">Free</span>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div className="flex justify-between items-center mb-8">
-                                    <span className="text-lg font-bold text-white uppercase tracking-widest">Total</span>
-                                    <span className="text-2xl font-serif text-primary">₹{cartTotal + 40}</span>
+                                    <span className="text-lg font-bold text-white uppercase tracking-widest">To Pay</span>
+                                    <span className="text-2xl font-serif text-primary">₹{cartTotal}</span>
                                 </div>
 
                                 <div className="space-y-4 mb-6">
